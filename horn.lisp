@@ -56,6 +56,7 @@
                      +no-bindings+
                      (lambda (s) (RETURN-FROM ASK-PATTERN
                                      (subst-bindings s (logic pattern))))))
+
 ;;; Find all proofs for query sentence, substitute bindings into pattern
 ;;;  once for each proof.  Return a list of all substituted patterns.
 (defun ask-patterns (kb query &optional (pattern query))
