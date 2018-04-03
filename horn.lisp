@@ -95,11 +95,13 @@
                                             bindings fn)) )
                    (NOT +fail+)
                    (t
-                    (let ((new-clause (rename-variables clause)))
+                    (let ((new-clause)
+                          (tail (rest goals)))
                         (dolist (clause (gethash (op goal) kb))
+                            (setq new-clause (rename-variables clause))
                             (back-chain-each
                              kb
-                             (append (conjuncts (arg1 new-clause)) (rest goals))
+                             (append (conjuncts (arg1 new-clause)) tail)
                              (unify goal (arg2 new-clause) bindings)
                              fn)))  ))))))
 
