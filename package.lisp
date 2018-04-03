@@ -9,7 +9,8 @@
            #:retract
            #:ask
            #:ask-each
-           #:ask-pattern))
+           #:ask-pattern
+           #:ask-patterns))
 
 
 (in-package :horn)
