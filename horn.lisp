@@ -1,6 +1,14 @@
 ;;; -*- mode:lisp; coding:utf-8 -*-
 
 
+;;; This file is part of the aimacode from
+;;; https://github.com/aimacode/aima-lisp
+;;; Copyright (c) 2016 aimacode
+
+;;; Some modify for JSCL and MOREN environment
+;;; Copyright © 2017,2018 Vladimir Mezentsev
+
+
 ;;;; Logical Reasoning in Horn Clause Knowledge Bases
 
 (in-package :horn)

@@ -1,9 +1,14 @@
 ;;; -*- mode:lisp; coding:utf-8 -*-
 
+;;; This file is part of the aimacode from
+;;; https://github.com/aimacode/aima-lisp
+;;; Copyright (c) 2016 aimacode
+
+;;; Some modify for JSCL and MOREN environment
+;;; Copyright © 2017,2018 Vladimir Mezentsev
+
 
 ;;;; Basic utility functions and macros, used throughout the code.
-
-
 
 ;;;; List Utilities
 

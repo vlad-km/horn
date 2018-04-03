@@ -1,5 +1,9 @@
 ;;; -*- mode:lisp; coding:utf-8 -*-
 
+;;; This file is part of the aimacode from
+;;; https://github.com/aimacode/aima-lisp
+;;; Copyright (c) 2016 aimacode
+
 ;;;; Unification and Substitutions (aka Binding Lists)
 
 ;;; This code is borrowed from "Paradigms of AI Programming: Case Studies
