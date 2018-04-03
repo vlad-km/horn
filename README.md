@@ -22,7 +22,7 @@ Initially, the author's codes are written very inefficiently and need further de
     (horn:tell kb '(=> (mother $x $y) (parent $x $y)))
     (horn:tell kb '(=> (father $x $y) (parent $x $y)))
     (horn:tell kb '(=> (and (parent $g $p) (parent $p $c)) (grand-parent $g $c)))
-    (horn:ask-patterns kb '(grand-parent $x $y) 
+    (horn:ask-patterns kb '(grand-parent $x $y)) 
 ;;=>
 ;;                  '((Grand-parent Gerda Isabella) (Grand-parent Gerda Juliet) 
 ;;                    (Grand-parent Torsten Isabella) (Grand-parent Torsten Juliet)))
