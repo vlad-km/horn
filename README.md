@@ -16,14 +16,21 @@ Initially, the author's codes are written very inefficiently and need further de
 ```lisp
     (setq kb (horn:make-kb))
     (horn:tell kb '(Mother Gerda Peter))
-    (tell kb2 '(Father Torsten Peter))
-    (tell kb2 '(Father Peter Isabella))
-    (tell kb2 '(Father Peter Juliet))
-    (tell kb2 '(=> (mother $x $y) (parent $x $y)))
-    (tell kb2 '(=> (father $x $y) (parent $x $y)))
-    (tell kb2 '(=> (and (parent $g $p) (parent $p $c)) (grand-parent $g $c)))
-    (ask-patterns kb2 '(grand-parent $x $y) 
+    (horn:tell kb '(Father Torsten Peter))
+    (horn:tell kb '(Father Peter Isabella))
+    (horn:tell kb '(Father Peter Juliet))
+    (horn:tell kb '(=> (mother $x $y) (parent $x $y)))
+    (horn:tell kb '(=> (father $x $y) (parent $x $y)))
+    (horn:tell kb '(=> (and (parent $g $p) (parent $p $c)) (grand-parent $g $c)))
+    (horn:ask-patterns kb '(grand-parent $x $y) 
 ;;=>
 ;;                  '((Grand-parent Gerda Isabella) (Grand-parent Gerda Juliet) 
 ;;                    (Grand-parent Torsten Isabella) (Grand-parent Torsten Juliet)))
 ```
+
+## Copyright
+Copyright © 2017,2018 Vladimir Mezentsev
+
+## License
+GNU General Public License v3.0
+
