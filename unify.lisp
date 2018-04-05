@@ -12,6 +12,7 @@
 ;;; the directory "pub/Norvig".  Note that it uses the term "bindings"
 ;;; rather than "substitution" or "theta".  The meaning is the same.
 
+
 ;;;; Constants
 
 (defconstant +fail+ nil "Indicates unification failure")
@@ -21,11 +22,12 @@
 
 ;;;; Top Level Functions
 
+
 (defun unify (x y &optional (bindings +no-bindings+))
     "See if x and y match with given bindings.  If they do,
   return a binding list that would make them equal [p 303]."
-    (cond ((eq bindings +fail+) +fail+)
-          ((eql x y) bindings)
+    (cond ((eql bindings +fail+) +fail+)
+          ((equal x y) bindings)
           ((variable? x) (unify-var x y bindings))
           ((variable? y) (unify-var y x bindings))
           ((and (consp x) (consp y))
@@ -55,6 +57,7 @@
     "Is x a variable (a symbol starting with $)?"
     (and (symbolp x) (eql (char (symbol-name x) 0) #\$)))
 
+
 (defun get-binding (var bindings)
     "Find a (variable . value) pair in a binding list."
     (assoc var bindings))
@@ -78,13 +81,13 @@
     (cons (make-binding var val)
           ;; Once we add a "real" binding,
           ;; we can get rid of the dummy +no-bindings+
-          (if (eq bindings +no-bindings+)
+          (if (equal bindings +no-bindings+)
               nil
               bindings)))
 
 (defun occurs-in? (var x bindings)
     "Does var occur anywhere inside x?"
-    (cond ((eq var x) t)
+    (cond ((eql var x) t)
           ((and (variable? x) (get-binding x bindings))
            (occurs-in? var (lookup x bindings) bindings))
           ((consp x) (or (occurs-in? var (first x) bindings)
@@ -94,8 +97,8 @@
 (defun subst-bindings (bindings x)
     "Substitute the value of variables in bindings into x,
   taking recursively bound variables into account."
-    (cond ((eq bindings +fail+) +fail+)
-          ((eq bindings +no-bindings+) x)
+    (cond ((eql bindings +fail+) +fail+)
+          ((eql bindings +no-bindings+) x)
           ((and (variable? x) (get-binding x bindings))
            (subst-bindings bindings (lookup x bindings)))
           ((atom x) x)
@@ -135,8 +138,10 @@
 
 (defun new-variable (var)
     "Create a new variable.  Assumes user never types variables of form $X.9"
-    (concat-symbol (if (variable? var) "" "$")
-                   var "." (incf *new-variable-counter*)))
-
+    (concat-symbol
+     (if (variable? var) "" "$")
+     var
+     "."
+     (incf *new-variable-counter*)))
 
 ;;; EOF

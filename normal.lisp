@@ -78,14 +78,13 @@
 
 (defun move-not-inwards (p)
     "Given P, return ~P, but with the negation moved as far in as possible."
-    (case (op p)
+    (case (intern (symbol-name (op p)) :horn)
       (TRUE 'false)
       (FALSE 'true)
       (NOT (arg1 p))
       (AND (disjunction (mapcar #'move-not-inwards (args p))))
       (OR  (conjunction (mapcar #'move-not-inwards (args p))))
       (t (make-exp 'not p))))
-
 
 (defun merge-disjuncts (disjuncts)
     "Return a CNF expression for the disjunction."
@@ -106,7 +105,7 @@
 (defun renaming? (p q &optional (bindings +no-bindings+))
     "Are p and q renamings of each other? (That is, expressions that differ
   only in variable names?)"
-    (cond ((eq bindings +fail+) +fail+)
+    (cond ((eql bindings +fail+) +fail+)
           ((equal p q) bindings)
           ((and (consp p) (consp q))
            (renaming? (rest p) (rest q)
@@ -142,10 +141,9 @@
 (defun horn-clause? (sentence)
     "A Horn clause (in INF) is an implication with atoms on the left and one
   atom on the right."
-    (and ;;(eq (op sentence) '=>)
-     (eq (intern (symbol-name (op sentence)) :horn) '=>)
-     (every #'atomic-clause? (conjuncts (arg1 sentence)))
-     (atomic-clause? (arg2 sentence))))
+    (and (eq (intern (symbol-name (op sentence)) :horn) '=>)
+         (every #'atomic-clause? (conjuncts (arg1 sentence)))
+         (atomic-clause? (arg2 sentence))))
 
 (defun conjuncts (sentence)
     "Return a list of the conjuncts in this sentence."

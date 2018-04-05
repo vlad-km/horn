@@ -20,10 +20,6 @@
     "Is this a list of exactly one element?"
     (and (consp list) (null (cdr list))))
 
-(defun random-element (list)
-    "Return some element of the list, chosen at random."
-    (nth (random (length list)) list))
-
 (defun mappend (fn &rest lists)
     "Apply fn to respective elements of list(s), and append results."
     (reduce #'append (apply #'mapcar fn lists) :from-end t))
@@ -35,19 +31,6 @@
 (defun last1 (list)
     "Return the last element of a list."
     (first (last list)))
-
-(defun left-rotate (list)
-    "Move the first element to the end of the list."
-    (append (rest list) (list (first list))))
-
-(defun right-rotate (list)
-    "Move the last element to the front of the list."
-    (append (last list) (butlast list)))
-
-(defun transpose (list-of-lists)
-    "Transpose a matrix represented as a list of lists.
-  Example: (transpose '((a b c) (d e f))) => ((a d) (b e) (c f))."
-    (apply #'mapcar #'list list-of-lists))
 
 (defun reuse-cons (x y x-y)
     "Return (cons x y), or reuse x-y if it is equal to (cons x y)"
@@ -61,33 +44,9 @@
 (defun arg1 (exp) "First argument" (first (args exp)))
 (defun arg2 (exp) "Second argument" (second (args exp)))
 
-
-
-(defun prefix->infix (exp)
-    "Convert a fully parenthesized prefix expression into infix notation."
-    (cond ((atom exp) exp)
-          ((length=1 (args exp)) exp)
-          (t (insert-between (op exp) (mapcar #'prefix->infix (args exp))))))
-
-(defun insert-between (item list)
-    "Insert item between every element of list."
-    (if (or (null list) (length=1 list))
-        list
-        (list* (first list) item (insert-between item (rest list)))))
-
-
 (defun true (&rest args) "Always return true."  t)
 
 (defun false (&rest args) "Always return false."  nil)
-
-;;;; Utilities for strings and symbols and printing
-
-(defun stringify (exp)
-    "Coerce argument to a string."
-    (cond ((stringp exp) exp)
-          ((symbolp exp) (symbol-name exp))
-          (t (format nil "~A" exp))))
-
 
 (defun concat-symbol (&rest args)
     "Concatenate the args into one string, and turn that into a symbol."
